@@ -1,0 +1,352 @@
+/* src/index.css – enhanced version */
+
+:root {
+  --plus: #2ecc71;
+  --minus: #c0392b;
+  --bg: #f7f9fc;
+  --card: white;
+  --primary: #3498db;
+  --primary-dark: #2980b9;
+  --danger: #e74c3c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  color: #333;
+}
+
+#root {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  text-align: center;
+}
+
+/* Your existing styles continue here... */
+.container {
+  background: var(--card);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+h1.balance {
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin: 0.5rem 0 2rem;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.inc-exp-container {
+  display: flex;
+  background: white;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 1px solid #eee;
+}
+
+.inc-exp-container > div {
+  flex: 1;
+  text-align: center;
+}
+
+.inc-exp-container > div:first-child {
+  border-right: 1px solid #eee;
+}
+
+.money.plus { color: var(--plus); font-weight: bold; font-size: 1.5rem; }
+.money.minus { color: var(--minus); font-weight: bold; font-size: 1.5rem; }
+
+/* Form */
+.expense-form {
+  margin: 2.5rem 0 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.9rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.25);
+}
+
+/* ────────────────────────────────────────────────
+   HISTORY / TRANSACTION LIST
+───────────────────────────────────────────────── */
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;                    /* nicer spacing between items */
+}
+
+.list li {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.22s ease;
+  position: relative;
+  overflow: hidden;
+  
+  /* Income / Expense side indicator */
+  border-left: 5px solid transparent;
+}
+
+.list li.plus {
+  border-left-color: var(--plus);     /* green left bar for income */
+}
+
+.list li.minus {
+  border-left-color: var(--minus);    /* red left bar for expense */
+}
+
+/* Hover effect */
+.list li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+}
+
+/* Item content layout */
+.list li .item-info {
+  flex: 1;
+  min-width: 0;                       /* prevents overflow */
+}
+
+.list li .item-text {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #1f2937;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.list li .category {
+  font-size: 0.82rem;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  margin-right: 0.5rem;
+}
+
+.list li .date {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* Right side (amount + delete) */
+.list li .right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.list li .right span {
+  font-weight: 700;
+  font-size: 1.1rem;
+  min-width: 90px;
+  text-align: right;
+}
+
+.list li.plus .right span {
+  color: var(--plus);
+}
+
+.list li.minus .right span {
+  color: var(--minus);
+}
+
+/* Delete button */
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* Empty state */
+.empty {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 1.05rem;
+  padding: 3rem 1rem;
+  background: rgba(243, 244, 246, 0.6);
+  border-radius: 12px;
+  border: 1px dashed #d1d5db;
+}
+
+/* Animation when new item appears */
+.list li {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive: smaller on mobile */
+@media (max-width: 480px) {
+  .list li {
+    padding: 0.9rem 1rem;
+  }
+  
+  .list li .item-text {
+    font-size: 1rem;
+  }
+  
+  .list li .right span {
+    font-size: 1rem;
+    min-width: 80px;
+  }
+  
+  .delete-btn {
+    width: 32px;
+    height: 32px;
+  }
+}
+/* ... keep your .list, .message, animations, etc. ... */
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out;
+}
+
+.message {
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.message.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+
+.message.error {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+.btn {
+  transition: all 0.25s ease;
+  transform: scale(1);
+}
+
+.btn:hover:not(:disabled) {
+  transform: scale(1.04);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.btn.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* List items fade-in when added */
+.list li {
+  animation: fadeIn 0.6s ease-out;
+}
